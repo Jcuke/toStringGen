@@ -90,7 +90,8 @@ public class ToStringGen extends AnAction {
                         String printValue = "[\\\"\" + StringUtils.join(java.util.Arrays.asList("+ fname +" == null ? new Object[]{} : "+ fname +"), \",\").replaceAll(\",\", \"\\\",\\\"\") +\"\\\"]";
                         sb.append((fieldCount != 0 ? "," : "") + "\\\"" + fname + "\\\"" + " : "+ printValue);
                     } else {
-                        sb.append((fieldCount != 0 ? "," : "") + "\\\"" + fname + "\\\"" + " : "+ "\" + \"\\\"\"+ "+ fname +" +\"\\\"\" +\"");
+                        String printValue = fname + " == null ? null : \"\\\"\" + "+ fname +" + \"\\\"\"";
+                        sb.append((fieldCount != 0 ? "," : "") + "\\\"" + fname + "\\\"" + " : "+ "\" + ("+ printValue +") +\"");
                     }
                 }
 
