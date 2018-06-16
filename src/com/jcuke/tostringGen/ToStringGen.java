@@ -12,6 +12,7 @@ import com.intellij.psi.codeStyle.JavaCodeStyleManager;
 import com.intellij.psi.util.PsiTreeUtil;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -53,7 +54,7 @@ public class ToStringGen extends AnAction {
 
             boolean haveQuotationMark = true;
 
-            //ÒÔÏÂÀàĞÍÔÚjsonÖĞÏÔÊ¾ÎªÊıÖµ£¬²»¼ÓÒıºÅ
+            //æ•°ç»„ç±»å‹çš„å±æ€§å€¼æ˜¾ç¤ºæ—¶ä¸ç”¨åŠ å¼•å·
             List<String> numberTypes = Arrays.asList(new String[]{"int", "float", "double", "short", "byte", "integer", "float"});
             for (String numberType : numberTypes) {
                 if(fieldClassType.equalsIgnoreCase(numberType)){
@@ -63,20 +64,37 @@ public class ToStringGen extends AnAction {
 
             String fname = field.getName();
 
-
-
-
-            //²»ÊÇ¼òµ¥µÄÊıÖµÀàĞÍ
+            //å¦‚æœæ˜¯å­—ç¬¦ä¸²ï¼Œéœ€è¦åŠ å¼•å·
             if(haveQuotationMark){
 
-                //Êı×éÀàĞÍµÄÊôĞÔ
-                if(fieldClassType.contains("[]")){
-                    String printValue = "[\\\"\" + StringUtils.join(Arrays.asList("+ fname +" == null ? new Object[]{} : "+ fname +"), \",\").replaceAll(\",\", \"\\\",\\\"\") +\"\\\"]";
-                    sb.append((fieldCount != 0 ? "," : "") + "\\\"" + fname + "\\\"" + " : "+ printValue);
-                } else {
-                    sb.append((fieldCount != 0 ? "," : "") + "\\\"" + fname + "\\\"" + " : "+ "\" + \"\\\"\"+ "+ fname +" +\"\\\"\" +\"");
+                boolean isCollectionType = true;
+                try {
+                    //å¯¹é›†åˆå¯¹è±¡çš„å¤„ç†
+                    String collectionsClassType = "java.util." + fieldClassType;
+                    Class fieldClass = Class.forName(collectionsClassType);
+                    //æ˜¯å¦ä»Collectionsä¸­ç»§æ‰¿
+                    if(Collection.class.isAssignableFrom(fieldClass)){
+                        String printValue = "\"+("+ fname + " == null ? \"[]\" :\"[\" + StringUtils.join("+ fname +", \",\").replaceAll(\",\", \"\\\",\\\"\") + \"]\")+ \"";
+                        sb.append((fieldCount != 0 ? "," : "") + "\\\"" + fname + "\\\"" + " : "+ printValue);
+                    } else {
+                        isCollectionType = false;
+                    }
+                } catch (ClassNotFoundException e) {
+                    isCollectionType = false;
                 }
 
+                //ä¸æ˜¯é›†åˆç±»å‹çš„å±æ€§
+                if(!isCollectionType){
+                    //æ•°ç»„ç±»å‹çš„å±æ€§
+                    if(fieldClassType.contains("[]")){
+                        String printValue = "[\\\"\" + StringUtils.join(java.util.Arrays.asList("+ fname +" == null ? new Object[]{} : "+ fname +"), \",\").replaceAll(\",\", \"\\\",\\\"\") +\"\\\"]";
+                        sb.append((fieldCount != 0 ? "," : "") + "\\\"" + fname + "\\\"" + " : "+ printValue);
+                    } else {
+                        sb.append((fieldCount != 0 ? "," : "") + "\\\"" + fname + "\\\"" + " : "+ "\" + \"\\\"\"+ "+ fname +" +\"\\\"\" +\"");
+                    }
+                }
+
+            //æ•°å€¼ç±»å‹çš„å±æ€§
             } else {
                 sb.append((fieldCount != 0 ? "," : "") + "\\\"" + fname + "\\\"" + " : "+ "\" + "+ fname +" +\"");
             }
