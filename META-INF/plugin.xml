@@ -1,0 +1,47 @@
+<idea-plugin version="2">
+  <id>QQ963577663</id>
+  <name>toStringGen(json)</name>
+  <version>1.0</version>
+  <vendor email="963577663@qq.com" url="http://www.yourcompany.com">王锦文个人插件</vendor>
+
+  <description><![CDATA[
+      重写优化了idea自带的生成toString()的插件(此方法生成的toString内容是一个json格式的字符串)<br>
+      <em>generate toString json</em>
+    ]]></description>
+
+  <change-notes><![CDATA[
+      第一个版本.<br>
+      <em>generate toString json</em>
+    ]]>
+  </change-notes>
+
+  <!-- please see https://confluence.jetbrains.com/display/IDEADEV/Build+Number+Ranges for description -->
+  <idea-version since-build="131"/>
+
+  <!-- please see https://confluence.jetbrains.com/display/IDEADEV/Plugin+Compatibility+with+IntelliJ+Platform+Products
+       on how to target different products -->
+  <!-- uncomment to enable plugin in all products
+  <depends>com.intellij.modules.lang</depends>
+  -->
+
+  <extensions defaultExtensionNs="com.intellij">
+    <!-- Add your extensions here -->
+  </extensions>
+
+  <application-components>
+    <!-- Add your application components here -->
+  </application-components>
+
+  <project-components>
+    <!-- Add your project components here -->
+  </project-components>
+
+  <actions>
+    <!-- Add your actions here -->
+    <action id="com.jcuke.tostringGen.ToStringGen" class="com.jcuke.tostringGen.ToStringGen" text="com.jcuke.tostringGen.ToStringGen" description="com.jcuke.tostringGen.ToStringGen">
+      <add-to-group group-id="GenerateGroup" anchor="last"/>
+      <keyboard-shortcut keymap="$default" first-keystroke="shift ctrl alt G"/>
+    </action>
+  </actions>
+
+</idea-plugin>
