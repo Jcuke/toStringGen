@@ -29,7 +29,8 @@ public class GenerateDialog extends DialogWrapper {
         ToolbarDecorator decorator = ToolbarDecorator.createDecorator(fieldList);
         decorator.disableAddAction();
         JPanel panel = decorator.createPanel();
-        myComponent = LabeledComponent.create(panel, "Field to generate toString()");
+        //panel.set
+        myComponent = LabeledComponent.create(panel, "select Field to generate toString()");
 
         init();
     }
@@ -37,7 +38,7 @@ public class GenerateDialog extends DialogWrapper {
     @Nullable
     @Override
     protected JComponent createCenterPanel() {
-        return null;
+        return myComponent;
     }
 
     public List<PsiField> getFields() {

@@ -2,15 +2,15 @@
   <id>QQ963577663</id>
   <name>toStringGen(json)</name>
   <version>1.0</version>
-  <vendor email="963577663@qq.com" url="http://www.yourcompany.com">王锦文个人插件</vendor>
+  <vendor email="963577663@qq.com" url="https://github.com/Jcuke/toStringGen">wangjinwen's code tool share</vendor>
 
   <description><![CDATA[
-      重写优化了idea自带的生成toString()的插件(此方法生成的toString内容是一个json格式的字符串)<br>
+      generate a toString() with a json format<br>
       <em>generate toString json</em>
     ]]></description>
 
   <change-notes><![CDATA[
-      第一个版本.<br>
+      First version.<br>
       <em>generate toString json</em>
     ]]>
   </change-notes>
