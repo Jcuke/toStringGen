@@ -8,6 +8,7 @@ import com.intellij.openapi.command.WriteCommandAction;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.psi.*;
 import com.intellij.psi.codeStyle.CodeStyleManager;
+import com.intellij.psi.codeStyle.JavaCodeStyleManager;
 import com.intellij.psi.util.PsiTreeUtil;
 
 import java.util.Arrays;
@@ -59,10 +60,25 @@ public class ToStringGen extends AnAction {
                     haveQuotationMark = false;
                 }
             }
+
+            String fname = field.getName();
+
+
+
+
+            //不是简单的数值类型
             if(haveQuotationMark){
-                sb.append((fieldCount != 0 ? "," : "") + "\\\"" + field.getName() + "\\\"" + " : "+ "\" + \"\\\"\"+ "+ field.getName() +" +\"\\\"\" +\"");
+
+                //数组类型的属性
+                if(fieldClassType.contains("[]")){
+                    String printValue = "[\\\"\" + StringUtils.join(Arrays.asList("+ fname +" == null ? new Object[]{} : "+ fname +"), \",\").replaceAll(\",\", \"\\\",\\\"\") +\"\\\"]";
+                    sb.append((fieldCount != 0 ? "," : "") + "\\\"" + fname + "\\\"" + " : "+ printValue);
+                } else {
+                    sb.append((fieldCount != 0 ? "," : "") + "\\\"" + fname + "\\\"" + " : "+ "\" + \"\\\"\"+ "+ fname +" +\"\\\"\" +\"");
+                }
+
             } else {
-                sb.append((fieldCount != 0 ? "," : "") + "\\\"" + field.getName() + "\\\"" + " : "+ "\" + "+ field.getName() +" +\"");
+                sb.append((fieldCount != 0 ? "," : "") + "\\\"" + fname + "\\\"" + " : "+ "\" + "+ fname +" +\"");
             }
             fieldCount++;
         }
@@ -72,8 +88,7 @@ public class ToStringGen extends AnAction {
         PsiElementFactory elementFactory = JavaPsiFacade.getElementFactory(psiClass.getProject());
         PsiMember toString = elementFactory.createMethodFromText(sb.toString(), psiClass);
         PsiElement method = psiClass.add(toString);
-        //JavaCodeStyleManager.getInstance(psiClass.getProject()).shortenClassReferences(method);
-        //JavaCodeStyleManager.getInstance(psiClass.getProject())
+        JavaCodeStyleManager.getInstance(psiClass.getProject()).shortenClassReferences(method);
         CodeStyleManager.getInstance(psiClass.getProject()).reformat(method);
     }
 
@@ -88,4 +103,6 @@ public class ToStringGen extends AnAction {
         PsiClass psiClass = PsiTreeUtil.getParentOfType(elemetnAt,  PsiClass.class);
         return psiClass;
     }
+
+
 }
