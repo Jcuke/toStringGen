@@ -6,7 +6,7 @@ package com.jcuke.tostringGen;
 public class Util {
 
     /**
-     * 这个代码无法植入到用户的环境中，只能让用户调用公共库来做这个转换
+     * 杩欎釜浠ｇ爜鏃犳硶妞嶅叆鍒扮敤鎴风殑鐜涓紝鍙兘璁╃敤鎴疯皟鐢ㄥ叕鍏卞簱鏉ュ仛杩欎釜杞崲
      * @param arr
      * @return
      */
