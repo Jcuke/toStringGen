@@ -1,4 +1,4 @@
-package com.jcuke.tostringGen;
+package com.jcuke.generator.single;
 
 import com.intellij.ide.util.DefaultPsiElementCellRenderer;
 import com.intellij.openapi.ui.DialogWrapper;
@@ -24,12 +24,27 @@ public class GenerateDialog extends DialogWrapper {
         super(psiClass.getProject());
         setTitle("Select Fields for ToString()");
         myFields = new CollectionListModel<PsiField>(psiClass.getAllFields());
+        //myFields.addListDataListener(new ListDataListener() {
+        //    @Override
+        //    public void intervalAdded(ListDataEvent e) {
+        //        System.out.println(1);
+        //    }
+        //
+        //    @Override
+        //    public void intervalRemoved(ListDataEvent e) {
+        //        System.out.println(2);
+        //    }
+        //
+        //    @Override
+        //    public void contentsChanged(ListDataEvent e) {
+        //        System.out.println(3);
+        //    }
+        //});
         JList fieldList = new JList(myFields);
         fieldList.setCellRenderer(new DefaultPsiElementCellRenderer());
         ToolbarDecorator decorator = ToolbarDecorator.createDecorator(fieldList);
         decorator.disableAddAction();
         JPanel panel = decorator.createPanel();
-        //panel.set
         myComponent = LabeledComponent.create(panel, "select Field to generate toString()");
 
         init();

@@ -1,4 +1,4 @@
-package com.jcuke.tostringGen;
+package com.jcuke.comm;
 
 /**
  * Created by cuke on 2018/6/16.

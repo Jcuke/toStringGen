@@ -38,10 +38,15 @@
 
   <actions>
     <!-- Add your actions here -->
-    <action id="com.jcuke.tostringGen.ToStringGen" class="com.jcuke.tostringGen.ToStringGen" text="com.jcuke.tostringGen.ToStringGen" description="com.jcuke.tostringGen.ToStringGen">
+    <action id="com.jcuke.generator.single.ToStringGen" class="com.jcuke.generator.single.ToStringGen" text="com.jcuke.generator.single.ToStringGen" description="com.jcuke.generator.single.ToStringGen">
       <add-to-group group-id="GenerateGroup" anchor="last"/>
       <keyboard-shortcut keymap="$default" first-keystroke="shift ctrl alt G"/>
     </action>
+      <action id="toStringGen" class="com.jcuke.generator.multiple.ToStringGen" text="toStringGen"
+              description="toString Generator with a json format">
+          <add-to-group group-id="RefactoringMenu" anchor="last"/>
+          <keyboard-shortcut keymap="$default" first-keystroke="shift ctrl alt R"/>
+      </action>
   </actions>
 
 </idea-plugin>
