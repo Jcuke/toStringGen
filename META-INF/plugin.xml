@@ -42,7 +42,7 @@
       <add-to-group group-id="GenerateGroup" anchor="last"/>
       <keyboard-shortcut keymap="$default" first-keystroke="shift ctrl alt G"/>
     </action>
-      <action id="toStringGen" class="com.jcuke.generator.multiple.ToStringGen" text="toStringGen"
+      <action id="toStringGen" class="com.jcuke.generator.multiple.ToStringGen" text="com.jcuke.generator.multiple.ToStringGen"
               description="toString Generator with a json format">
           <add-to-group group-id="RefactoringMenu" anchor="last"/>
           <keyboard-shortcut keymap="$default" first-keystroke="shift ctrl alt R"/>
